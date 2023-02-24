@@ -2,14 +2,19 @@
 
 ## Información acerca de los autores.
 
-| Nombre | Apellidos | Correo electrónico |
-|:------:|:-----------:|:----------------:|
-| José María   | Antón Pequeno | antonpequeno@gmail.com
-| Juan Carlos | López |
-| María Jesús    | Bra |
-| Francisco José | Calviño |
-| Javier | Caeiro Canabal |
-| César | Leal |
+|     Nombre                  |      Correo electrónico     |
+|:---------------------------:|:---------------------------:|
+* José María Antón Pequeno      | antonpequeno@gmail.com
+
+* Juan Carlos López García      | juanc.doa@gmail.com
+
+* María Jesús Bra Rodríguez     | chusprogramacion@gmail.com
+
+* Francisco José Calviño García | frjcgarcia@gmail.com
+
+* Javier Caeiro Canabal         | jcaeiroc@gmail.com
+
+* César Leal Pérez              | cesarldev@gmail.com
 
 <br>
 
@@ -17,6 +22,5 @@
 
 <br>
 
-[Regresar al índice general de contenidos](../README.md)
+[Regresar a la página principal](../README.md)
 
-[Regresar al apartado anterior](apdo5.md)
