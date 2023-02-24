@@ -52,9 +52,9 @@ Para ello utilizaremos la orden sudo (super user do) asegurandonos de que tenemo
 
 Abrimos el terminal (_shell_); también, pulsando teclas&nbsp;&nbsp; `Alt + Ctrl + T`&nbsp; y procedemos a tomar control del sistema como superusuario (_root_), empleando los siguientes códigos; según sea la situación:
 
-+ En el caso de conocer la contraseña del superusuario (_root_), entonces:
+1.- En caso de conocer la contraseña del superusuario (_root_):
 ```
-nombre_del_usuario@nombre_de_la_computadora:~$ su -
+su -
 
 Contraseña:
 
@@ -62,10 +62,10 @@ Contraseña:
 ```
 Uno de los sistemas de seguridad que caracterizan a los sistemas Linux es que los password no se van a enseñar en pantalla, por lo que aunque no lo parezca estamos escribiendolo.
 
-+ En el caso de desconocer la contraseña del superusuario (_root_) y sólo disponer de la contraseña del usuario, entonces:
+2.- En caso de desconocer la contraseña del superusuario (_root_) y sólo disponer de la contraseña del usuario:
 
 ```
-nombre_del_usuario@nombre_de_la_computadora:~$ sudo -i
+sudo -i
 
 [sudo] contraseña para nombre_del_usuario:
 
@@ -107,7 +107,7 @@ De todas formas para comprobarlo escribiremos:
 ```
  systemctl status apache2
 ```
-Si el servicio está ejecutándose correctamente y en todo momento, entonces, el terminal debería mostrarnos algo así:
+Si el servicio está ejecutándose correctamente, el terminal debería mostrarnos algo así:
 
 ```
 ● apache2.service - The Apache HTTP Server
@@ -154,7 +154,7 @@ image::assets/imgs/apache_works.png[apache_works, 600,600]
 
 
 
-En esta guía, se instalará _MariaDB_ de la siguiente manera:
+En esta guía, como parte del LAMP, se instalará _MariaDB_ de la siguiente manera:
 
 ```
  apt-get install mariadb-server
@@ -270,7 +270,7 @@ mariadb --version
 
 ### 1.5. Instalación de PHP.
 
-Aunque el sistema operativo ya trae preinstalado un interprete de _PHP_ instalaremos la versión 7.4 de _PHP_ por cuestiones de compatibilidad, desde el terminal como superusuario (_sudo_):
+Aunque el sistema operativo ya trae preinstalado un interprete de _PHP_ instalaremos la versión 7.4 de _PHP_, por cuestiones de compatibilidad, desde el terminal como superusuario (_sudo_):
 
 ```
  apt install php7.4 libapache2-mod-php7.4 php7.4-mysql -y
@@ -301,56 +301,26 @@ image::assets/imgs/info_php.png[info_php, 600,600]
 
 
 
-Una vez guardado (`Ctrl + S`), abrimos el navegador y en la barra de direcciones escribimos lo siguiente (ambas opciones son válidas):
-
-+ 127.0.0.1/info.php
-  
-+ localhost/info.php
-
+Una vez guardado (`Ctrl + O`), salimos del editor _nano_ (`Ctrl + X`), abrimos el navegador y en la barra de direcciones escribimos lo siguiente (ambas opciones son válidas):
+```
+127.0.0.1/info.php
+```
+o si preferimos
+```
+localhost/info.php
+```
 
 
 image::assets/imgs/php_localhost.png[info_php2, 600,600]
 
 Se recomienda como medida de seguridad una vez comprobado que funciona la eliminación del archivo `info.php`:
 ```
-/var/www/html# rm info.php
+cd /var/www/html/
+
+rm info.php
 ```
 
 == 2. Instalación de WordPress.
-
----
-
-
-
-Desde el directorio `/var/www/html#` procedemos a la descarga del archivo `latest.tar.gz`:
-
-```
-wget -c http://wordpress.org/latest.tar.gz
-```
-y verificamos la descarga:
-```
-ls -l
-```
-Descomprimimos el archivo `latest.tar.gz` en este directorio. Este archivo contiene una carpeta comprimida denominada `wordpress`, que creará un directorio del mismo nombre.
-
-```
- tar -xzvf latest.tar.gz
-```
-y lo verificamos:
-
-```
- ls -l
-```
-
-A continuación debemos asignar un nuevo usuario y grupo para concederle permisos recursivamente al directorio `wordpress`.
-
-```
- chown -R www-data:www-data wordpress/
-```
-
----
-
-== 3. Configuración de WordPress.
 
 ---
 Usamos el comando wget para descargar y archivar el enlace con la página web de descargas de wordpress, en idioma español (https //wordpress.org/latest-es_ES.tar.gz)
@@ -363,16 +333,23 @@ image::assets/imgs/wordpress_instalacion2.png[wordpress2, 600,600]
 
 Para poder utilizar el archivo .tar que hemos guardado debemos proceder con los dos siguientes comandos:
 
+Primero descomprimimos el archivo en la carpeta que nos interesa
 ```
 sudo tar xf latest-es_ES.tar.gz -C var/www/html
 ```
+A continuacion tomamos posesion de la carpeta para poder utilizarla libremente
 ```
 sudo chown -R www-data: /var/www/html/wordpress
 ```
 
 image::assets/imgs/wordpress_instalacion3.png[wordpress3, 600,600]
 
-Una vez hemos realizado estes pasos, es el momento de preparar la base de datos que utilizará Wordpress, por lo que debemos conectarnos a nuestro SGBD, en este caso a MariaDB:
+Una vez hemos realizado estes pasos, es el momento de preparar la base de datos que utilizará Wordpress.
+Podemos hacerlo con un interfaz grafico como por ejemplo _PhpMyAdmin_ 
+
+image::assets/imgs/phpMyAdmin.png[phpMyAdmin, 600, 600]
+
+o mediante la linea de comandos, para lo que debemos conectarnos a nuestro _SGBD_, en este caso a _MariaDB_:
 
 ```
 mysql -u root -p
@@ -408,46 +385,54 @@ sudo apt install -y php8.1-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
 (o la versión php7.4, según compatibilidad)
 
+image::assets/imgs/wordpress_instalacion10.png[wordpress10, 600,600]
+
+Instalamos los complementos necesarios para el funcionamiento con php:
+
 image::assets/imgs/wordpress_instalacion9.png[wordpress9, 600,600]
 
+A continuacion necesitamos recargar el servicio de apache2 para que funcionen los cambios:
 ```
 sudo systemctl reload apache2
 ```
-image::assets/imgs/wordpress_instalacion10.png[wordpress10, 600,600]
+image::assets/imgs/wordpress_instalacion11.png[wordpress11, 300,300]
 
+Y habilitamos la reescritura del archivo:
 ```
 sudo a2enmod rewrite
 ```
-image::assets/imgs/wordpress_instalacion11.png[wordpress11, 300,300]
+image::assets/imgs/wordpress_instalacion12.png[wordpress12, 400,400]
 
 Editamos el archivo: 
 ```
 sudo nano /etc/apache2/sites-available/wordpress.conf
 ```
-image::assets/imgs/wordpress_instalacion12.png[wordpress12, 400,400]
+image::assets/imgs/wordpress_instalacion13.png[wordpress13, 600,600]
 
-y pegamos en el lo siguiente:
+
+e insertamos lo siguiente:
 ```
 <Directory /var/www/html/wordpress>
 AllowOverride all
 </Directory>
 ```
-image::assets/imgs/wordpress_instalacion13.png[wordpress13, 600,600]
 
+Una vez guardados los cambios vamos a habilitarlo:
 ```
 sudo a2ensite wordpress.conf
 ```
-image::assets/imgs/wordpress_instalacion14.png[wordpress14, 300,300]
-
-Finalmente sólo nos quedaría reiniciar el servicio de Apache2 para que se hagan efectivos los cambios:
-```
-sudo systemctl restart apache2
-```
 image::assets/imgs/wordpress_instalacion15.png[wordpress15, 300,300]
 
-Y acceder desde un navegador web a nuestra ip/wordpress para acabar la configuración.
 
+Finalmente sólo nos quedaría volver a reiniciar el servicio de Apache2 para que se hagan efectivos los cambios:
+```
+sudo systemctl restart apache2
+
+```
 image::assets/imgs/wordpress_instalacion16.png[wordpress16, 300,300]
+
+Ahora podemos acceder desde un navegador web a nuestra ip/wordpress para acabar la configuración desde el instalador web.
+
 image::assets/imgs/wordpress_instalacion17.png[wordpress17, 600,600]
 
 Una vez cubiertos los datos que nos solicitan enviamos la información.
@@ -458,15 +443,14 @@ Y finalmente instalamos wordpress.
 
 image::assets/imgs/wordpress_instalacion19.png[wordpress19, 600,600]
 
-Ahora ya podemos acceder a wordpress con nuestros datos personales
+Ahora ya podemos acceder a wordpress con nuestros datos personales al sitio de administracion
 
 image::assets/imgs/wordpress_instalacion20.png[wordpress20, 600,600]
 
-y tener acceso al Escritorio de wordpress.
+para comenzar a crear nuestra página web.
 
 image::assets/imgs/wordpress_instalacion21.png[wordpress21, 600,600]
 
----
 == Información acerca de los autores.
 
 
@@ -480,9 +464,3 @@ image::assets/imgs/wordpress_instalacion21.png[wordpress21, 600,600]
 
 
 ---
-
-
-
-[Regresar al índice general de contenidos](../README.md)
-
-[Regresar al apartado anterior](apdo5.md)
