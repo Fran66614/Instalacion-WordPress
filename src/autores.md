@@ -22,5 +22,5 @@
 
 <br>
 
-[Regresar al índice general de contenidos](../README.md)
+[Regresar a la página principal](../README.md)
 
