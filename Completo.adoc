@@ -310,7 +310,7 @@ rm info.php
 Usamos el comando wget para descargar y archivar el enlace con la página web de descargas de wordpress, en idioma español (https //wordpress.org/latest-es_ES.tar.gz)
 
 ```
-$ wget https://es.wordpress.org/latest-es_ES.tar.gz
+wget https://es.wordpress.org/latest-es_ES.tar.gz
 ```
 image::assets/imgs/wordpress_instalacion.png[wordpress1]
 image::assets/imgs/wordpress_instalacion2.png[wordpress2]
