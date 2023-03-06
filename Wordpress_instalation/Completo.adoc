@@ -3,27 +3,7 @@
 :toc-title: Indice de contenidos
 
 
-
-Esta es una guía acerca de cómo instalar _Wordpress_ en _Ubuntu_ 20.04 _LTS_, deseamos que la documentación aportada sea de utilidad para otros usuarios y, también, sirva para mejorar las habilidades en el uso de _Markdown_ y _GitHub_.
-
-
-
----
----
-
-image::assets/imgs/wordpress_intro.png[wp_intro, 600,600] 
-
-
-
-Millones de personas en todo el mundo utilizan este potente _CMS_ de código abierto para crear _blogs_ y sitios _web_ totalmente funcionales. La simplicidad de _Wordpress_ permite, incluso para quienes no tienen experiencia previa en diseño o desarrollo _web_, llevar a cabo proyectos de cierta envergadura.
-
-Dispone de una amplia variedad de _themes_ y _plugins_ que te permitirán personalizar tu _web_.
-
-Hay muchas formas de acceder a _WordPress_ para gestionar y modificar tus _webs_. No obstante, en algunos casos, los usuarios no informáticos tienen ciertas dificultades en la instalación y configuración de este _CMS_ debido a determinados requisitos.
-
-En esta guía te ayudaremos en la instalación y configuración de _WordPress_ en _Ubuntu_ 20.04 _LTS_.
-
----
+image::assets/imgs/wordpress_intro.png[wp_intro] 
 
 
 == 1.Instalación de LAMP.
@@ -145,7 +125,7 @@ Debe mostrar una página similar a esta:
 
 
  
-image::assets/imgs/apache_works.png[apache_works, 600,600]
+image::assets/imgs/apache_works.png[apache_works]
 
 ---
 
@@ -284,7 +264,7 @@ Para asegurarnos un correcto funcionamiento de _WordPress_ necesitamos la instal
 ```
 Y los habilitaremos con:
 ```
- a2enmod php7.4
+ a2enmod php8.1
 ```
 Una vez finalizada la instalación reiniciamos el servicio de _Apache HTTP Server_:
 
@@ -294,11 +274,9 @@ Una vez finalizada la instalación reiniciamos el servicio de _Apache HTTP Serve
 En el caso de _PHP_ crearemos un archivo con la finalidad de comprobar si funciona correctamente el _package_ instalado y le insertaremos el código:
 
 ```
- cd /
- cd var/www/html/
- nano info.php
+ sudo nano /var/www/html/info.php
 ```
-image::assets/imgs/info_php.png[info_php, 600,600]
+image::assets/imgs/info_php.png[info_php]
 
 
 
@@ -312,7 +290,7 @@ localhost/info.php
 ```
 
 
-image::assets/imgs/php_localhost.png[info_php2, 600,600]
+image::assets/imgs/php_localhost.png[info_php2]
 
 Se recomienda como medida de seguridad una vez comprobado que funciona la eliminación del archivo `info.php`:
 ```
@@ -329,8 +307,8 @@ Usamos el comando wget para descargar y archivar el enlace con la página web de
 ```
 wget https://es.wordpress.org/latest-es_ES.tar.gz
 ```
-image::assets/imgs/wordpress_instalacion.png[wordpress1, 600,600]
-image::assets/imgs/wordpress_instalacion2.png[wordpress2, 600,600]
+image::assets/imgs/wordpress_instalacion.png[wordpress1]
+image::assets/imgs/wordpress_instalacion2.png[wordpress2]
 
 Para poder utilizar el archivo .tar que hemos guardado debemos proceder con los dos siguientes comandos:
 
@@ -343,7 +321,7 @@ A continuacion tomamos posesion de la carpeta para poder utilizarla libremente
 sudo chown -R www-data: /var/www/html/wordpress
 ```
 
-image::assets/imgs/wordpress_instalacion3.png[wordpress3, 600,600]
+image::assets/imgs/wordpress_instalacion3.png[wordpress3]
 
 Una vez hemos realizado estes pasos, es el momento de preparar la base de datos que utilizará Wordpress.
 Podemos hacerlo con un interfaz grafico como por ejemplo _PhpMyAdmin_ 
@@ -355,42 +333,42 @@ o mediante la linea de comandos, para lo que debemos conectarnos a nuestro _SGBD
 ```
 mysql -u root -p
 ```
-image::assets/imgs/wordpress_instalacion4.png[wordpress4, 600,600]
+image::assets/imgs/wordpress_instalacion4.png[wordpress4]
 
 Creamos la Base de Datos:
 ```
 create database wordpress charset utf8mb4 collate utf8mb4_unicode_ci;
 ```
-image::assets/imgs/wordpress_instalacion5.png[wordpress5, 600,600]
+image::assets/imgs/wordpress_instalacion5.png[wordpress5]
 
 Creamos el usuario que podrá gestionar la Base de Datos:
 ```
 create user wordpress@localhost identified by ‘xxxxxxxxx’;
 ```
-image::assets/imgs/wordpress_instalacion6.png[wordpress6, 600,600]
+image::assets/imgs/wordpress_instalacion6.png[wordpress6]
 
 Le asignamos los permisos necesarios al usuario que acabamos de crear:
 ```
 grant all privileges on wordpress.* to wordpress@localhost;
 ```
-image::assets/imgs/wordpress_instalacion7.png[wordpress7, 600,600]
+image::assets/imgs/wordpress_instalacion7.png[wordpress7]
 
 Por último, configuraremos en Apache nuestro sitio de Wordpress con los siguientes pasos:
 ```
 sudo apt install -y php-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
-image::assets/imgs/wordpress_instalacion8.png[wordpress8, 600,600]
+image::assets/imgs/wordpress_instalacion8.png[wordpress8]
 
 ```
 sudo apt install -y php8.1-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
 (o la versión php7.4, según compatibilidad)
 
-image::assets/imgs/wordpress_instalacion10.png[wordpress10, 600,600]
+image::assets/imgs/wordpress_instalacion10.png[wordpress10]
 
 Instalamos los complementos necesarios para el funcionamiento con php:
 
-image::assets/imgs/wordpress_instalacion9.png[wordpress9, 600,600]
+image::assets/imgs/wordpress_instalacion9.png[wordpress9]
 
 A continuacion necesitamos recargar el servicio de apache2 para que funcionen los cambios:
 ```
@@ -408,7 +386,7 @@ Editamos el archivo:
 ```
 sudo nano /etc/apache2/sites-available/wordpress.conf
 ```
-image::assets/imgs/wordpress_instalacion13.png[wordpress13, 600,600]
+image::assets/imgs/wordpress_instalacion13.png[wordpress13]
 
 
 e insertamos lo siguiente:
@@ -434,23 +412,23 @@ image::assets/imgs/wordpress_instalacion16.png[wordpress16, 300,300]
 
 Ahora podemos acceder desde un navegador web a nuestra ip/wordpress para acabar la configuración desde el instalador web.
 
-image::assets/imgs/wordpress_instalacion17.png[wordpress17, 600,600]
+image::assets/imgs/wordpress_instalacion17.png[wordpress17]
 
 Una vez cubiertos los datos que nos solicitan enviamos la información.
 
-image::assets/imgs/wordpress_instalacion18.png[wordpress18, 600,600]
+image::assets/imgs/wordpress_instalacion18.png[wordpress18]
 
 Y finalmente instalamos wordpress.
 
-image::assets/imgs/wordpress_instalacion19.png[wordpress19, 600,600]
+image::assets/imgs/wordpress_instalacion19.png[wordpress19]
 
 Ahora ya podemos acceder a wordpress con nuestros datos personales al sitio de administracion
 
-image::assets/imgs/wordpress_instalacion20.png[wordpress20, 600,600]
+image::assets/imgs/wordpress_instalacion20.png[wordpress20]
 
 para comenzar a crear nuestra página web.
 
-image::assets/imgs/wordpress_instalacion21.png[wordpress21, 600,600]
+image::assets/imgs/wordpress_instalacion21.png[wordpress21]
 
 == Información acerca de los autores.
 
