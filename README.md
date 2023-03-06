@@ -6,7 +6,7 @@
 
 <br>
 
-### **Guía destinada a la instalación de WordPress en Ubuntu MATE 20.04 LTS.**
+### **Guía destinada a la instalación de WordPress en Ubuntu 20.04 LTS.**
 
 </span>
 
