@@ -276,6 +276,11 @@ En el caso de _PHP_ crearemos un archivo con la finalidad de comprobar si funcio
 ```
  sudo nano /var/www/html/info.php
 ```
+Y dentro del archivo escribiremos:
+```
+ <?php phpinfo(); ?>
+```
+
 image::assets/imgs/info_php.png[info_php]
 
 
