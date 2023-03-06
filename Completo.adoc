@@ -55,7 +55,7 @@ sudo -i
 Antes de continuar realizaremos la actualización del _software_ instalado en la computadora:
 
 ```
- apt update && apt upgrade -y
+ sudo apt update && sudo apt upgrade -y
 
 ```
 El añadido _-y_ es para que no pida una autorizacion y lo realice en segundo plano.
@@ -69,13 +69,13 @@ El añadido _-y_ es para que no pida una autorizacion y lo realice en segundo pl
 Procedemos a instalar _Apache HTTP Server_ y un paquete de herramientas adicionales que son necesarias:
 
 ```
- apt install -y apache2 apache2-utils
+ sudo apt install -y apache2 apache2-utils
 ```
 
 A continuación, ejecutamos la siguiente orden, de modo que, ahora nuestra computadora pueda realizar tareas como servidor:
 
 ```
- systemctl start apache2
+ sudo systemctl start apache2
 
 ```
 
@@ -85,7 +85,7 @@ De todas formas para comprobarlo escribiremos:
 
 
 ```
- systemctl status apache2
+ sudo systemctl status apache2
 ```
 Si el servicio está ejecutándose correctamente, el terminal debería mostrarnos algo así:
 
@@ -137,22 +137,22 @@ image::assets/imgs/apache_works.png[apache_works]
 En esta guía, como parte del LAMP, se instalará _MariaDB_ de la siguiente manera:
 
 ```
- apt-get install mariadb-server
+ sudo apt-get install mariadb-server
 ```
 
 A continuación,  se inicia el servicio de _MariaDB_ y estableceremos el inicio automatico:
 
 ```
- systemctl start mariadb
+ sudo systemctl start mariadb
 
- systemctl enable mariadb
+ sudo systemctl enable mariadb
 ```
 
 
 Comprobamos que el servicio esté ejecutándose:
 
 ```
- systemctl status mariadb
+ sudo systemctl status mariadb
 ```
 Si todo está correcto el terminal debería mostrarnos algo así:
 
@@ -259,17 +259,17 @@ Aunque el sistema operativo ya trae preinstalado un interprete de _PHP_ instalar
 Para asegurarnos un correcto funcionamiento de _WordPress_ necesitamos la instalación de algunos módulos adicionales:
 
 ```
- apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip -y
+ sudo apt install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip -y
 
 ```
 Y los habilitaremos con:
 ```
- a2enmod php8.1
+ sudo a2enmod php8.1
 ```
 Una vez finalizada la instalación reiniciamos el servicio de _Apache HTTP Server_:
 
 ```
- systemctl restart apache2
+ sudo systemctl restart apache2
 ```
 En el caso de _PHP_ crearemos un archivo con la finalidad de comprobar si funciona correctamente el _package_ instalado y le insertaremos el código:
 
@@ -305,7 +305,7 @@ rm info.php
 Usamos el comando wget para descargar y archivar el enlace con la página web de descargas de wordpress, en idioma español (https //wordpress.org/latest-es_ES.tar.gz)
 
 ```
-wget https://es.wordpress.org/latest-es_ES.tar.gz
+$ wget https://es.wordpress.org/latest-es_ES.tar.gz
 ```
 image::assets/imgs/wordpress_instalacion.png[wordpress1]
 image::assets/imgs/wordpress_instalacion2.png[wordpress2]
@@ -331,7 +331,7 @@ image::assets/imgs/phpMyAdmin.png[phpMyAdmin, 600, 600]
 o mediante la linea de comandos, para lo que debemos conectarnos a nuestro _SGBD_, en este caso a _MariaDB_:
 
 ```
-mysql -u root -p
+sudo mariadb -u root -p
 ```
 image::assets/imgs/wordpress_instalacion4.png[wordpress4]
 
@@ -392,7 +392,7 @@ image::assets/imgs/wordpress_instalacion13.png[wordpress13]
 e insertamos lo siguiente:
 ```
 <Directory /var/www/html/wordpress>
-AllowOverride all
+      AllowOverride all
 </Directory>
 ```
 
