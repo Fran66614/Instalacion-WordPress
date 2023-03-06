@@ -1,16 +1,18 @@
 # Guía de instalación LAMP y WordPress.
 :toc: left
-:toc-title: Indice de contenidos
-
-
-Esta es una guía acerca de cómo instalar _Wordpress_ en _Ubuntu_ 20.04 _LTS_, deseamos que la documentación aportada sea de utilidad para otros usuarios y también sirva para mejorar las habilidades en el uso de _Markdown_ y _GitHub_.
-
+:toc-title: Índice de contenidos.
+:note-caption: pass:[&#128276;]
+:warning-caption: pass:[&#128721;]
+:lang: es
 
 ---
----
 
-image::assets/imgs/wordpress_intro.png[wp_intro, 800, 600] 
+*Introducción*
 
+[NOTE]
+Esta guía acerca de cómo instalar https://wordpress.com/es/[_Wordpress_] en https://cdimage.ubuntu.com/ubuntu-mate/releases/focaL/release/[_Ubuntu_ _MATE_ 20.04.5 _LTS_], tiene como objetivo, a través de una secuencia detallada de “pasos”, proveer a los usuarios, principalmente no informáticos; en su mayoría, de un documento que les permita disponer fácilmente de este https://en.wikipedia.org/wiki/Content_management_system[_CMS_] denominado _WordPress_.
+
+image:assets/imgs/wordpress_intro.png[width=500] 
 
 Millones de personas en todo el mundo utilizan este potente _CMS_ de código abierto para crear _blogs_ y sitios _web_ totalmente funcionales. La simplicidad de _Wordpress_ permite, incluso para quienes no tienen experiencia previa en diseño o desarrollo _web_, llevar a cabo proyectos de cierta envergadura.
 
@@ -127,13 +129,13 @@ sudo systemctl enable apache2
 ```
 Si abrimos un navegador, como _Mozilla Firefox_ y escribimos en la barra de búsqueda, alguna de las siguientes direcciones:
 
-+ localhost
-+ localhost:80
-+ localhost:8080
+* localhost
+* localhost:80
+* localhost:8080
 
 Debe mostrar una página similar a esta:
 
-image::assets/imgs/apache_works.png[apache_works, 800, 600]
+image:assets/imgs/apache_works.png[width=500]
 
 ---
 
@@ -284,7 +286,7 @@ cd /
 cd var/www/html/
 nano info.php
 ```
-image::assets/imgs/info_php.png[info_php, 800, 600]
+image:assets/imgs/info_php.png[width=400]
 
 
 Una vez guardado (`Ctrl + O`), salimos del editor _nano_ (`Ctrl + X`), abrimos el navegador y en la barra de direcciones escribimos lo siguiente (ambas opciones son válidas):
@@ -296,7 +298,7 @@ o si preferimos
 localhost/info.php
 ```
 
-image::assets/imgs/php_localhost.png[info_php2, 800, 600]
+image:assets/imgs/php_localhost.png[width=500]
 
 Se recomienda como medida de seguridad una vez comprobado que funciona la eliminación del archivo `info.php`:
 ```
@@ -308,15 +310,16 @@ rm info.php
 == 2. Instalación de WordPress.
 
 ---
-Usamos el comando wget para descargar y archivar el enlace con la página web de descargas de wordpress, en idioma español (https //wordpress.org/latest-es_ES.tar.gz)
+Usamos el comando `wget` para descargar del repositorio de descargas de la web `WordPress.org`, en este caso, seleccionamos la versión en español.
 
 ```
 wget https://es.wordpress.org/latest-es_ES.tar.gz
 ```
-image::assets/imgs/wordpress_instalacion.png[wordpress1, 800, 600]
-image::assets/imgs/wordpress_instalacion2.png[wordpress2, 800, 600]
+image:assets/imgs/wordpress_instalacion.png[width=500]
 
-Para poder utilizar el archivo .tar que hemos guardado debemos proceder con los dos siguientes comandos:
+image:assets/imgs/wordpress_instalacion2.png[width=500]
+
+Para poder utilizar el archivo `.tar.gz` que hemos guardado debemos proceder con los dos siguientes comandos:
 
 Primero descomprimimos el archivo en la carpeta que nos interesa
 ```
@@ -327,72 +330,72 @@ A continuación tomamos posesión de la carpeta para poder utilizarla libremente
 sudo chown -R www-data: /var/www/html/wordpress
 ```
 
-image::assets/imgs/wordpress_instalacion3.png[wordpress3, 800, 600]
+image::assets/imgs/wordpress_instalacion3.png[width=500]
 
 Una vez hemos realizado estos pasos, es el momento de preparar la base de datos que utilizará Wordpress.
 Podemos hacerlo con un interfaz grafico como por ejemplo _PhpMyAdmin_ 
 
-image::assets/imgs/phpMyAdmin.png[phpMyAdmin, 800, 600]
+image::assets/imgs/phpMyAdmin.png[width=500]
 
 o mediante la linea de comandos, para lo que debemos conectarnos a nuestro _SGBD_, en este caso a _MariaDB_:
 
 ```
 mysql -u root -p
 ```
-image::assets/imgs/wordpress_instalacion4.png[wordpress4, 800, 600]
+image:assets/imgs/wordpress_instalacion4.png[width=500]
 
 Creamos la Base de Datos:
 ```
 create database wordpress charset utf8mb4 collate utf8mb4_unicode_ci;
 ```
-image::assets/imgs/wordpress_instalacion5.png[wordpress5, 800, 600]
+image:assets/imgs/wordpress_instalacion5.png[width=500]
 
 Creamos el usuario que podrá gestionar la Base de Datos:
 ```
 create user wordpress@localhost identified by ‘xxxxxxxxx’;
 ```
-image::assets/imgs/wordpress_instalacion6.png[wordpress6, 800, 600]
+image:assets/imgs/wordpress_instalacion6.png[width=500]
 
 Le asignamos los permisos necesarios al usuario que acabamos de crear:
 ```
 grant all privileges on wordpress.* to wordpress@localhost;
 ```
-image::assets/imgs/wordpress_instalacion7.png[wordpress7, 800, 600]
+image::assets/imgs/wordpress_instalacion7.png[width=500]
 
 Por último, configuraremos en Apache nuestro sitio de Wordpress con los siguientes pasos:
 ```
 sudo apt install -y php-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
-image::assets/imgs/wordpress_instalacion8.png[wordpress8, 800, 600]
+image::assets/imgs/wordpress_instalacion8.png[width=500]
 
 ```
 sudo apt install -y php8.1-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
 (o la versión php7.4, según compatibilidad)
 
-image::assets/imgs/wordpress_instalacion10.png[wordpress10, 800, 600]
+image::assets/imgs/wordpress_instalacion10.png[width=500]
 
 Instalamos los complementos necesarios para el funcionamiento con php:
 
-image::assets/imgs/wordpress_instalacion9.png[wordpress9, 800, 600]
+image::assets/imgs/wordpress_instalacion9.png[width=500]
 
 A continuación necesitamos recargar el servicio de apache2 para que funcionen los cambios:
 ```
 sudo systemctl reload apache2
 ```
-image::assets/imgs/wordpress_instalacion11.png[wordpress11, 300,300]
+image::assets/imgs/wordpress_instalacion11.png[width=500]
 
 Y habilitamos la reescritura del archivo:
 ```
 sudo a2enmod rewrite
 ```
-image::assets/imgs/wordpress_instalacion12.png[wordpress12, 400,400]
+image::assets/imgs/wordpress_instalacion12.png[width=500]
 
 Editamos el archivo: 
 ```
 sudo nano /etc/apache2/sites-available/wordpress.conf
 ```
-image::assets/imgs/wordpress_instalacion13.png[wordpress13, 800, 600]
+image::assets/imgs/wordpress_instalacion13.png[width=500]
 
 e insertamos lo siguiente:
 ```
@@ -405,22 +408,22 @@ Una vez guardados los cambios vamos a habilitarlo:
 ```
 sudo a2ensite wordpress.conf
 ```
-image::assets/imgs/wordpress_instalacion15.png[wordpress15, 300,300]
+image::assets/imgs/wordpress_instalacion15.png[width=500]
 
 Finalmente sólo nos quedaría volver a reiniciar el servicio de Apache2 para que se hagan efectivos los cambios:
 ```
 sudo systemctl restart apache2
 
 ```
-image::assets/imgs/wordpress_instalacion16.png[wordpress16, 300,300]
+image::assets/imgs/wordpress_instalacion16.png[width=500]
 
 Ahora podemos acceder desde un navegador web a nuestra ip/wordpress para acabar la configuración desde el instalador web.
 
-image::assets/imgs/wordpress_instalacion17.png[wordpress17, 800, 600]
+image::assets/imgs/wordpress_instalacion17.png[width=500]
 
 Una vez cubiertos los datos que nos solicitan enviamos la información.
 
-image::assets/imgs/wordpress_instalacion18.png[wordpress18, 800, 600]
+image::assets/imgs/wordpress_instalacion18.png[width=500]
 
 Y finalmente instalamos wordpress.
 
