@@ -252,6 +252,8 @@ mariadb --version
 
 Aunque el sistema operativo ya trae preinstalado un interprete de _PHP_ instalaremos la última versión, para ello iremos a la página de oficial  https://www.php.net/downloads, y buscaremos la última versión estable para linux que debe acabar en *.tar.gz*, la descargamos y descomprimimos:
 
+image::assets/imgs/descargaPHP.png[]
+
 ```
  sudo apt install php8.1 libapache2-mod-php8.1 php8.1-mysql php-common php8.1-cli php8.1-common php8.1-opcache php8.1-readline
 
@@ -276,6 +278,11 @@ En el caso de _PHP_ crearemos un archivo con la finalidad de comprobar si funcio
 ```
  sudo nano /var/www/html/info.php
 ```
+y dentro del archivo 
+```
+ <?php phpinfo(); ?>
+```
+
 image::assets/imgs/info_php.png[info_php]
 
 
@@ -316,12 +323,14 @@ Primero descomprimimos el archivo en la carpeta que nos interesa
 ```
 sudo tar xf latest-es_ES.tar.gz -C var/www/html
 ```
+image::assets/imgs/wordpress_instalacion3.png[wordpress3]
+
 A continuacion tomamos posesion de la carpeta para poder utilizarla libremente
 ```
 sudo chown -R www-data: /var/www/html/wordpress
 ```
 
-image::assets/imgs/wordpress_instalacion3.png[wordpress3]
+image::assets/imgs/wordpress_instalacion4.png[wordpress4]
 
 Una vez hemos realizado estes pasos, es el momento de preparar la base de datos que utilizará Wordpress.
 Podemos hacerlo con un interfaz grafico como por ejemplo _PhpMyAdmin_ 
@@ -333,32 +342,37 @@ o mediante la linea de comandos, para lo que debemos conectarnos a nuestro _SGBD
 ```
 mysql -u root -p
 ```
-image::assets/imgs/wordpress_instalacion4.png[wordpress4]
+image::assets/imgs/wordpress_instalacion5.png[wordpress5]
 
 Creamos la Base de Datos:
 ```
 create database wordpress charset utf8mb4 collate utf8mb4_unicode_ci;
 ```
-image::assets/imgs/wordpress_instalacion5.png[wordpress5]
+image::assets/imgs/wordpress_instalacion6.png[wordpress6]
 
 Creamos el usuario que podrá gestionar la Base de Datos:
 ```
 create user wordpress@localhost identified by ‘xxxxxxxxx’;
 ```
-image::assets/imgs/wordpress_instalacion6.png[wordpress6]
+image::assets/imgs/wordpress_instalacion7.png[wordpress7]
 
 Le asignamos los permisos necesarios al usuario que acabamos de crear:
 ```
 grant all privileges on wordpress.* to wordpress@localhost;
 ```
-image::assets/imgs/wordpress_instalacion7.png[wordpress7]
+image::assets/imgs/wordpress_instalacion8.png[wordpress8]
 
 Por último, configuraremos en Apache nuestro sitio de Wordpress con los siguientes pasos:
+
+* Instalamos los complementos necesarios para el funcionamiento con php:
+
+** Con este comando ya no es necesario escribir la versión del PHP, puesto que te modifica la que tienes instalada en tu computador.
 ```
 sudo apt install -y php-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
-image::assets/imgs/wordpress_instalacion8.png[wordpress8]
+image::assets/imgs/wordpress_instalacion9.png[wordpress9]
 
+** En caso de que se prefiera hacer con el número de versión, tienes estas dos opciones:
 ```
 sudo apt install -y php8.1-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
@@ -366,11 +380,9 @@ sudo apt install -y php8.1-{curl,gd,imagick,intl,mbstring,xml,zip}
 
 image::assets/imgs/wordpress_instalacion10.png[wordpress10]
 
-Instalamos los complementos necesarios para el funcionamiento con php:
 
-image::assets/imgs/wordpress_instalacion9.png[wordpress9]
 
-A continuacion necesitamos recargar el servicio de apache2 para que funcionen los cambios:
+* A continuacion necesitamos recargar el servicio de apache2 para que funcionen los cambios:
 ```
 sudo systemctl reload apache2
 ```
@@ -392,7 +404,7 @@ image::assets/imgs/wordpress_instalacion13.png[wordpress13]
 e insertamos lo siguiente:
 ```
 <Directory /var/www/html/wordpress>
-AllowOverride all
+        AllowOverride all
 </Directory>
 ```
 
