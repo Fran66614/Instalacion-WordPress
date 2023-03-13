@@ -364,6 +364,7 @@ Le asignamos los permisos necesarios al usuario que acabamos de crear:
 image::assets/imgs/wordpress_instalacion8.png[wordpress8]
 
 Y a continuacion salimos de MAriaDB
+
 ...
 > exit;
 ...
