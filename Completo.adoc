@@ -365,11 +365,9 @@ image::assets/imgs/wordpress_instalacion8.png[wordpress8]
 
 Y a continuacion salimos de MAriaDB
 
-...
-
+```
 > exit;
-
-...
+```
 
 Por último, configuraremos en Apache nuestro sitio de Wordpress con los siguientes pasos:
 
