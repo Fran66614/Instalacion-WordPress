@@ -322,14 +322,14 @@ Para poder utilizar el archivo .tar que hemos guardado debemos proceder con los 
 
 Primero descomprimimos el archivo en la carpeta que nos interesa
 ```
-sudo tar xf latest-es_ES.tar.gz -C var/www/html
+sudo tar xf latest-es_ES.tar.gz -C /var/www/
 
 ```
 image::assets/imgs/wordpress_instalacion3.png[wordpress3]
 
 A continuacion tomamos posesion de la carpeta para poder utilizarla libremente
 ```
-sudo chown -R www-data: /var/www/html/wordpress
+sudo chown -R www-data: /var/www/wordpress
 ```
 image::assets/imgs/wordpress_instalacion4.png[wordpress4]
 
@@ -341,25 +341,25 @@ image::assets/imgs/phpMyAdmin.png[phpMyAdmin, 600, 600]
 o mediante la linea de comandos, para lo que debemos conectarnos a nuestro _SGBD_, en este caso a _MariaDB_:
 
 ```
-sudo mariadb -u root -p
+mariadb -u root -p
 ```
 image::assets/imgs/wordpress_instalacion5.png[wordpress5]
 
 Creamos la Base de Datos:
 ```
-create database wordpress charset utf8mb4 collate utf8mb4_unicode_ci;
+> create database wordpress charset utf8mb4 collate utf8mb4_unicode_ci;
 ```
 image::assets/imgs/wordpress_instalacion6.png[wordpress6]
 
 Creamos el usuario que podrá gestionar la Base de Datos:
 ```
-create user wordpress@localhost identified by ‘xxxxxxxxx’;
+> create user wordpress@localhost identified by ‘xxxxxxxxx’;
 ```
 image::assets/imgs/wordpress_instalacion7.png[wordpress7]
 
 Le asignamos los permisos necesarios al usuario que acabamos de crear:
 ```
-grant all privileges on wordpress.* to wordpress@localhost;
+> grant all privileges on wordpress.* to wordpress@localhost;
 ```
 image::assets/imgs/wordpress_instalacion8.png[wordpress8]
 
