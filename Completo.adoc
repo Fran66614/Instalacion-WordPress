@@ -363,7 +363,15 @@ Le asignamos los permisos necesarios al usuario que acabamos de crear:
 ```
 image::assets/imgs/wordpress_instalacion8.png[wordpress8]
 
+Y a continuacion salimos de MAriaDB
+...
+> exit;
+...
+
 Por último, configuraremos en Apache nuestro sitio de Wordpress con los siguientes pasos:
+
+Instalamos los complementos necesarios para el funcionamiento con php 8.1 (si no lo tenemos ya instalado):
+
 ```
 sudo apt install -y php-{curl,gd,imagick,intl,mbstring,xml,zip}
 ```
@@ -375,9 +383,6 @@ sudo apt install -y php8.1-{curl,gd,imagick,intl,mbstring,xml,zip}
 (o la versión php7.4, según compatibilidad)
 
 image::assets/imgs/wordpress_instalacion9.png[wordpress9]
-
-Instalamos los complementos necesarios para el funcionamiento con php:
-
 
 A continuacion necesitamos recargar el servicio de apache2 para que funcionen los cambios:
 ```
@@ -400,7 +405,7 @@ image::assets/imgs/wordpress_instalacion13.png[wordpress13]
 
 e insertamos lo siguiente:
 ```
-<Directory /var/www/html/wordpress>
+<Directory /var/www/wordpress>
       AllowOverride all
 </Directory>
 ```
